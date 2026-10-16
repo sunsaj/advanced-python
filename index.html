@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Senior Python Engineering interactive book reader">
+  <title>Senior Python Engineering</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#reader-content">Skip to book content</a>
+  <header class="app-header" id="app-header">
+    <button class="icon-button mobile-only" id="sidebar-toggle" type="button" aria-label="Open chapter navigation" aria-controls="chapter-sidebar" aria-expanded="false">
+      <span aria-hidden="true">☰</span>
+    </button>
+    <a class="brand" href="#/home" aria-label="Senior Python Engineering home">
+      <span class="brand-mark" aria-hidden="true">Py</span>
+      <span class="brand-copy"><strong>Senior Python Engineering</strong><small>Interactive reader</small></span>
+    </a>
+    <div class="header-progress" aria-label="Reading progress">
+      <span id="progress-label">Start here</span>
+      <span class="progress-track" aria-hidden="true"><span id="progress-bar"></span></span>
+    </div>
+    <div class="header-actions">
+      <button class="header-button" id="search-toggle" type="button" aria-label="Search the book" aria-haspopup="dialog">
+        <span aria-hidden="true">⌕</span><span class="button-label">Search</span><kbd>/</kbd>
+      </button>
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+        <span id="theme-icon" aria-hidden="true">◐</span>
+      </button>
+      <button class="icon-button" id="help-toggle" type="button" aria-label="Show keyboard shortcuts" aria-haspopup="dialog">
+        <span aria-hidden="true">?</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-backdrop" id="mobile-backdrop" hidden></div>
+
+  <div class="reader-layout">
+    <nav class="chapter-sidebar" id="chapter-sidebar" aria-label="Book chapters" tabindex="-1">
+      <div class="sidebar-header">
+        <div><span class="eyebrow">Curriculum</span><strong>38 reading sections</strong></div>
+        <button class="icon-button mobile-only" id="sidebar-close" type="button" aria-label="Close chapter navigation">×</button>
+      </div>
+      <div class="sidebar-actions">
+        <button class="secondary-button" id="home-link" type="button">Book overview</button>
+        <button class="secondary-button" id="collapse-sidebar" type="button" aria-pressed="false">Compact</button>
+      </div>
+      <div class="chapter-navigation" id="chapter-navigation"></div>
+      <footer class="sidebar-footer">
+        <span id="completed-summary">0 of 33 chapters complete</span>
+      </footer>
+    </nav>
+
+    <main id="reader-content" tabindex="-1">
+      <section class="landing-view" id="landing-view" aria-labelledby="landing-title">
+        <div class="landing-copy">
+          <span class="eyebrow">From first principles to production systems</span>
+          <h1 id="landing-title">Senior Python Engineering</h1>
+          <p class="landing-lead">A visual, practical guide to Python internals, architecture, distributed systems, AI engineering, reliability, web systems, and security.</p>
+          <div class="landing-actions">
+            <button class="primary-button" id="start-reading" type="button">Start reading</button>
+            <button class="secondary-button" id="browse-chapters" type="button">Browse chapters</button>
+          </div>
+          <dl class="book-stats" id="book-stats">
+            <div><dt>Chapters</dt><dd>33</dd></div>
+            <div><dt>Diagrams</dt><dd>33</dd></div>
+            <div><dt>Reference</dt><dd>Production focused</dd></div>
+          </dl>
+        </div>
+        <div class="landing-visual" aria-hidden="true">
+          <div class="orbit-card orbit-card-one"><span>01</span><strong>Python internals</strong></div>
+          <div class="orbit-card orbit-card-two"><span>15</span><strong>MCP and agents</strong></div>
+          <div class="orbit-card orbit-card-three"><span>33</span><strong>Security</strong></div>
+          <div class="landing-core"><span>Senior</span><strong>Python</strong><small>Engineering</small></div>
+        </div>
+      </section>
+
+      <section class="document-view" id="document-view" hidden>
+        <div class="document-toolbar">
+          <div>
+            <span class="eyebrow" id="document-part">Part</span>
+            <span class="reading-time" id="reading-time">1 min read</span>
+          </div>
+          <div class="document-actions">
+            <button class="secondary-button" id="complete-toggle" type="button" aria-pressed="false">Mark complete</button>
+            <button class="icon-button" id="print-document" type="button" aria-label="Print this section">⎙</button>
+          </div>
+        </div>
+        <article class="book-article" id="book-article" aria-live="off"></article>
+        <nav class="document-footer-nav" aria-label="Previous and next reading sections">
+          <button id="previous-document" class="document-nav-button" type="button"><span>Previous</span><strong id="previous-label">Book overview</strong></button>
+          <button id="next-document" class="document-nav-button next" type="button"><span>Next</span><strong id="next-label">Orientation</strong></button>
+        </nav>
+      </section>
+
+      <section class="not-found-view" id="not-found-view" hidden>
+        <span class="eyebrow">Navigation error</span>
+        <h1>That section could not be found</h1>
+        <p id="not-found-message">The requested book section does not exist.</p>
+        <button class="primary-button" id="not-found-home" type="button">Return to overview</button>
+      </section>
+    </main>
+
+    <aside class="section-outline" id="section-outline" aria-label="On this page">
+      <div class="outline-sticky">
+        <span class="eyebrow">On this page</span>
+        <nav id="section-navigation" aria-label="Current section headings"></nav>
+        <button class="back-to-top" id="back-to-top" type="button">Back to top ↑</button>
+      </div>
+    </aside>
+  </div>
+
+  <dialog class="search-dialog" id="search-dialog" aria-labelledby="search-title">
+    <div class="dialog-header">
+      <div><span class="eyebrow">Local full-text search</span><h2 id="search-title">Search the book</h2></div>
+      <button class="icon-button" id="search-close" type="button" aria-label="Close search">×</button>
+    </div>
+    <label class="search-field"><span class="sr-only">Search query</span><span aria-hidden="true">⌕</span><input id="search-input" type="search" autocomplete="off" placeholder="Try GIL, caching, OAuth, MCP…"></label>
+    <p class="search-help" id="search-help">Search chapter titles, headings, glossary terms, and the complete manuscript.</p>
+    <div class="search-results" id="search-results" role="listbox" aria-describedby="search-help"></div>
+  </dialog>
+
+  <dialog class="help-dialog" id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-header"><h2 id="help-title">Keyboard shortcuts</h2><button class="icon-button" id="help-close" type="button" aria-label="Close keyboard shortcuts">×</button></div>
+    <dl class="shortcut-list"><div><dt><kbd>/</kbd></dt><dd>Open search</dd></div><div><dt><kbd>[</kbd></dt><dd>Previous reading section</dd></div><div><dt><kbd>]</kbd></dt><dd>Next reading section</dd></div><div><dt><kbd>Esc</kbd></dt><dd>Close an open panel</dd></div></dl>
+  </dialog>
+
+  <div class="live-region sr-only" id="live-region" aria-live="polite" aria-atomic="true"></div>
+
+  <noscript>
+    <section class="noscript-message"><h1>JavaScript is required for the interactive reader</h1><p>The complete PDF and Word editions remain available in the project dist folder.</p></section>
+  </noscript>
+
+  <script src="content/book-data.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
